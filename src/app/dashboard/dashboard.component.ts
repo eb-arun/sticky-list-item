@@ -10,7 +10,8 @@ export class DashboardComponent implements OnInit {
   storyTitle:any;
   storySnap:any;
   addBtn:boolean;
-  saveSection:boolean;
+  listData:any = [];
+  saveData:any;
 
   constructor() { }
 
@@ -18,9 +19,23 @@ export class DashboardComponent implements OnInit {
   }
   addNew () {
     this.addBtn = true;
+    this.storyTitle='';
+    this.storySnap='';
   }
 
   saveStory() {
     this.addBtn = false;
+    this.saveData = {
+      title:this.storyTitle,
+      snap:this.storySnap,
+      created:new Date().getTime(),
+      active:true
+    }
+    this.listData.push(this.saveData);
+    console.log('listData', this.listData);
+  }
+  deleteStory(data) {
+    this.listData = this.listData.filter((res) =>res.created !== data.created);
+
   }
 }
