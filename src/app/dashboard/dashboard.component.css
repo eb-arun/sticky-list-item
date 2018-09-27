@@ -19,3 +19,14 @@
 .storyList .card:hover .btn-group {
     visibility: visible;
 }
+.storyList .card.shadow-sm:empty {
+    display:none;
+}
+.scroll > .row {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+}
+.scroll > .row > .col-md-4 {
+  display: inline-block;
+  float: none;
+}

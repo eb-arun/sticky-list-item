@@ -8,6 +8,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
+import { DndModule } from 'ng2-dnd';
+
+
 export const router: Routes = [
   { path: '', component: DashboardComponent },
 
@@ -23,7 +26,8 @@ export const router: Routes = [
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot(router),
-    FormsModule
+    FormsModule,
+    DndModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],

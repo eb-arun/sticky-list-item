@@ -9,29 +9,45 @@
 
 <div class="container-fluid mt-3">
   <div class="row">
-    <div class="col-md-4 col-xl-3">
+    <div class="col-md-4 col-xl-3 mb-2">
+      <div class="column-1 bg-light pt-2 pl-3 pr-3 pb-2">
+        <div class="clearfix">
+          <div><a class="d-block" (click)="addListPop()">{{addListBtnText}}</a></div>
+          <div class="listCol addNew clearfix mb-3 mt-2" *ngIf="listBtn">
+            <input type="text" class="pl-2" maxlength="20" placeholder="add a list" [(ngModel)]="listTitle">
+            <button type="button" class="btn btn-dark btn-sm float-right" (click)="addList()">Add</button>
+            <button type="button" class="btn btn-dark btn-sm float-right mr-2" (click)="cancelList()">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll">
+  <div class="row">
+    <div class="col-md-4 col-xl-3 mb-3" *ngFor="let data of dB">
       <div class="column-1 bg-light p-3">
         <div class="clearfix">
-          <span class="text-white">To Do</span>
-          <button type="button" class="btn btn-dark btn-sm float-right" (click)="addNew()">+ Add</button>
+          <span class="text-white">{{data.title}}</span>
+          <button *ngIf="addListBtn" type="button" class="btn btn-dark btn-sm float-right" (click)="addNew(data)">+ Add Item</button>
         </div>
-        <div class="addNew clearfix mb-3 mt-2" *ngIf="addBtn">
+        <div class="addNew clearfix mb-3 mt-2" *ngIf="addBtn && data.created == addNewTitle">
           <input type="text" class="pl-2" maxlength="20" placeholder="add a title" [(ngModel)]="storyTitle">
-          <textarea class="pl-2" maxlength="75" placeholder="add a snap" [(ngModel)]="storySnap"></textarea>
-          <button type="button" class="btn btn-dark btn-sm float-right" (click)="saveStory()">Save</button>
+          <textarea class="pl-2" maxlength="75" placeholder="add a synopsis" [(ngModel)]="storySnap"></textarea>
+          <button type="button" class="btn btn-dark btn-sm float-right" (click)="saveStory(data)">Save</button>
           <button type="button" class="btn btn-dark btn-sm float-right mr-2" (click)="cancelPop()">Cancel</button>
 
         </div>
-        <div class="updateStory clearfix mb-3 mt-2" *ngIf="updateBtn">
+        <div class="updateStory clearfix mb-3 mt-2" *ngIf="updateBtn && data.created == updateListTitle">
           <input type="text" class="pl-2" maxlength="20" placeholder="update a title" [(ngModel)]="updateTitle">
-          <textarea class="pl-2" maxlength="75" placeholder="update a snap" [(ngModel)]="updateSnap"></textarea>
-          <button type="button" class="btn btn-dark btn-sm float-right" (click)="updateStory()">Update</button>
+          <textarea class="pl-2" maxlength="75" placeholder="update a synopsis" [(ngModel)]="updateSnap"></textarea>
+          <button type="button" class="btn btn-dark btn-sm float-right" (click)="updateStory(this)">Update</button>
           <button type="button" class="btn btn-dark btn-sm float-right mr-2" (click)="cancelPop()">Cancel</button>
 
         </div>
-        <div class="storyList">
-          <div class="card mt-2 shadow-sm" *ngFor="let data of listData let i = index">
-            <div class="card-body">
+        <div class="storyList"> 
+          <div class="card mt-2 shadow-sm" *ngFor="let data of data.listData let i = index">
+            <div class="card-body" *ngIf="data.active">
               <h5 class="card-title">{{data.title}}</h5>
               <p class="card-text">{{data.snap}}</p>
               <div class="d-flex justify-content-between align-items-center">
@@ -44,9 +60,9 @@
             </div>
           </div>
         </div>
-        
+
       </div>
     </div>
-
+  </div>
   </div>
 </div>
